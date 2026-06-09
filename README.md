@@ -189,5 +189,12 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 **Disclaimer:** This is an unofficial, third-party tool and is not affiliated with, endorsed, or sponsored by Google.
 
-local mcp server for open code to me ollama coding model
+## Ollama Concurrency Note
+
+When using a local Ollama model (e.g. `qwen3.6:27b`), only **one request is processed at a time**. Ollama queues parallel requests and runs them sequentially — it does not run multiple instances of the same model simultaneously.
+
+This means:
+- Running two `opencode run` commands in parallel will not speed things up — the second waits for the first
+- For best results, send tasks one at a time and wait for each to complete before sending the next
+- Attempting parallel runs will also consume significant RAM (17GB+ per model load) and may cause memory pressure
 
